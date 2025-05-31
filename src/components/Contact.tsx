@@ -1,4 +1,4 @@
-import { FiMail, FiPhone, FiMapPin } from "react-icons/fi";
+import { FiMail, FiMapPin } from "react-icons/fi";
 
 export const Contact = () => {
   return (
@@ -47,5 +47,5 @@ export const Contact = () => {
     </div>
   );
 };
-
+//sdasdsadasdsadasd
 export default Contact;
