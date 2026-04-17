@@ -1,161 +1,227 @@
-import { useState } from "react";
-import joe from "../assets/df5393e2-4d1e-4954-8ac4-f85b9335136b.jpg";
-import { FaHtml5, FaCss3Alt, FaReact, FaJs, FaLinux } from "react-icons/fa";
-import { SiTailwindcss, SiBootstrap, SiApple } from "react-icons/si";
+import React, { useState } from "react";
+import { FaHtml5, FaCss3Alt, FaReact, FaJs, FaLinux, FaGithub } from "react-icons/fa";
+import { SiTailwindcss, SiSalesforce, SiMysql, SiTypescript } from "react-icons/si";
+import aboutPhoto from "../assets/df5393e2-4d1e-4954-8ac4-f85b9335136b.jpg";
+import { useScrollReveal } from "../hooks/useScrollReveal";
+
+const SKILLS = [
+  { icon: <FaReact color="#61DAFB" size={22} />, name: "React" },
+  { icon: <FaJs color="#F7DF1E" size={22} />, name: "JavaScript" },
+  { icon: <SiTypescript color="#3178C6" size={20} />, name: "TypeScript" },
+  { icon: <FaHtml5 color="#E34F26" size={22} />, name: "HTML5" },
+  { icon: <FaCss3Alt color="#1572B6" size={22} />, name: "CSS3" },
+  { icon: <SiTailwindcss color="#06B6D4" size={20} />, name: "Tailwind CSS" },
+  { icon: <SiMysql color="#4479A1" size={22} />, name: "SQL" },
+  { icon: <SiSalesforce color="#00A1E0" size={20} />, name: "Salesforce" },
+  { icon: <FaLinux color="#FCC624" size={22} />, name: "Linux" },
+  { icon: <FaGithub color="#fff" size={20} />, name: "Git / GitHub" },
+];
+
+const TABS = ["Skills", "Education", "Certifications"];
 
 export const About = () => {
-  const [activeTab, setActiveTab] = useState("skills");
-  
-  const tabs = [
-    { id: "skills", label: "Skills" },
-    { id: "education", label: "Education" },
-    { id: "experience", label: "Experience" }
-  ];
-  
+  const [tab, setTab] = useState("Skills");
+  const { ref: photoRef, visible: photoVisible } = useScrollReveal();
+  const { ref: contentRef, visible: contentVisible } = useScrollReveal();
+
   return (
-    <div id="about" className="py-20 bg-gray-50">
-      <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <p className="text-blue-600 font-semibold mb-2">ABOUT ME</p>
-          <h2 className="text-4xl font-bold text-blue-950 mb-4">
-            Get to Know Me Better
-          </h2>
-          <div className="h-1 w-20 bg-blue-600 mx-auto"></div>
+    <section id="about" className="s-section" style={{
+      padding: "120px 0",
+      background: "var(--bg)",
+    }}>
+      <div className="s-inner">
+
+        {/* Section label */}
+        <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 16 }}>
+          <span style={{
+            fontFamily: "var(--font-display)", fontSize: 11, fontWeight: 600,
+            letterSpacing: "0.18em", color: "var(--accent2)", textTransform: "uppercase",
+          }}>03 — About</span>
+          <div style={{ flex: 1, height: 1, background: "var(--border)" }} />
         </div>
-        
-        <div className="grid md:grid-cols-12 gap-12 items-center">
-          {/* Image Column */}
-          <div className="md:col-span-5">
-            <div className="relative">
-              <div className="absolute inset-0 transform translate-x-4 translate-y-4 bg-blue-600 rounded-lg"></div>
-              <img 
-                src={joe} 
-                alt="Yousuf Radwan" 
-                className="relative z-10 h-auto rounded-lg shadow-lg w-full object-cover"
-              />
-              <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-blue-950 rounded-full flex items-center justify-center z-20">
-                <p className="text-white font-bold text-center">
-                  3+ <br /> Years <br /> Experience
-                </p>
-              </div>
+
+        <h2 style={{
+          fontFamily: "var(--font-display)", fontSize: "clamp(36px, 5vw, 54px)",
+          fontWeight: 800, letterSpacing: "-0.04em",
+          color: "var(--text)", marginBottom: 64, lineHeight: 1.1,
+        }}>
+          The person<br /><span style={{ color: "var(--text3)" }}>behind the code</span>
+        </h2>
+
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1.4fr",
+          gap: 80, alignItems: "start",
+        }} className="about-grid">
+
+          {/* Left — photo */}
+          <div
+            ref={photoRef as React.RefObject<HTMLDivElement>}
+            style={{
+              position: "relative",
+              opacity: photoVisible ? 1 : 0,
+              transform: photoVisible ? "translateX(0)" : "translateX(-32px)",
+              transition: "opacity 0.6s ease, transform 0.6s ease",
+            }}>
+            <div style={{
+              position: "absolute", inset: -1,
+              background: `linear-gradient(135deg, var(--accent)30, var(--accent2)20)`,
+              borderRadius: 20, zIndex: 0,
+            }} />
+            <img src={aboutPhoto} alt="Yousuf Radwan"
+              style={{
+                position: "relative", zIndex: 1,
+                width: "100%", borderRadius: 18,
+                display: "block", filter: "grayscale(15%)",
+              }} />
+            {/* Floating stat */}
+            <div style={{
+              position: "absolute", bottom: -20, right: -20, zIndex: 2,
+              background: "var(--surface)",
+              border: "1px solid var(--border2)",
+              borderRadius: 14, padding: "16px 20px",
+              backdropFilter: "blur(12px)",
+              textAlign: "center",
+            }}>
+              <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 28, color: "var(--accent)", lineHeight: 1 }}>3+</div>
+              <div style={{ fontSize: 11, color: "var(--text3)", marginTop: 4, fontWeight: 400 }}>Years<br />Experience</div>
             </div>
           </div>
-          
-          {/* Content Column */}
-          <div className="md:col-span-7">
-            <h3 className="text-2xl font-bold text-blue-950 mb-4">
-            Web Developer & IT Support Specialist            </h3>
-            
-            <p className="text-gray-700 mb-6">
-            I'm a Web Developer & IT Support Specialist with a Computer Science degree from Jordan University of Science and Technology. With a strong background in IT support and connectivity, I combine technical expertise with creative problem-solving to deliver smooth, user-friendly digital experiences. I'm experienced across Windows, macOS, iOS, and Android environments, and adept at using ticketing systems, ERP/CRM platforms, and cloud services to drive efficient support operations. I'm passionate about building seamless interfaces, optimizing system performance, and staying current with the latest web technologies and industry trends.
+
+          {/* Right — content */}
+          <div
+            ref={contentRef as React.RefObject<HTMLDivElement>}
+            style={{
+              opacity: contentVisible ? 1 : 0,
+              transform: contentVisible ? "translateX(0)" : "translateX(32px)",
+              transition: "opacity 0.6s ease 0.1s, transform 0.6s ease 0.1s",
+            }}>
+            <p style={{
+              fontSize: 15, color: "var(--text2)", lineHeight: 1.85,
+              fontWeight: 400, marginBottom: 36,
+            }}>
+              I'm a frontend developer and CS graduate with a passion for building interfaces that feel effortless to use. My background spans web development, IT support, and customer-facing tech environments — giving me a rare mix of technical depth and people-first thinking.
             </p>
-            
+            <p style={{
+              fontSize: 15, color: "var(--text3)", lineHeight: 1.85,
+              fontWeight: 400, marginBottom: 40,
+            }}>
+              Currently based in Orlando, FL, working as a Connectivity Expert at AT&T while deepening my React and Salesforce knowledge. Apple Certified iOS Technician. Always building something.
+            </p>
+
             {/* Tabs */}
-            <div className="mb-6">
-              <div className="flex border-b border-gray-200">
-                {tabs.map((tab) => (
-                  <button
-                    key={tab.id}
-                    className={`py-2 px-4 font-medium text-sm ${
-                      activeTab === tab.id
-                        ? "border-b-2 border-blue-600 text-blue-600"
-                        : "text-gray-500 hover:text-blue-800"
-                    }`}
-                    onClick={() => setActiveTab(tab.id)}
-                  >
-                    {tab.label}
-                  </button>
+            <div style={{ borderBottom: "1px solid var(--border)", marginBottom: 28 }}>
+              <div style={{ display: "flex", gap: 2 }}>
+                {TABS.map(t => (
+                  <button key={t} onClick={() => setTab(t)} style={{
+                    padding: "10px 20px",
+                    background: "none", border: "none",
+                    borderBottom: `2px solid ${tab === t ? "var(--accent)" : "transparent"}`,
+                    color: tab === t ? "var(--text)" : "var(--text3)",
+                    fontFamily: "var(--font-display)", fontWeight: 500, fontSize: 13,
+                    letterSpacing: "0.04em", cursor: "pointer",
+                    transition: "color 0.2s",
+                    marginBottom: -1,
+                  }}>{t}</button>
                 ))}
               </div>
-              
-              {/* Tab Content */}
-              <div className="py-4">
-                {activeTab === "skills" && (
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    <div className="flex items-center p-3 bg-white rounded-lg shadow-sm">
-                      <FaHtml5 className="text-orange-500 mr-3" size={24} />
-                      <span>HTML5</span>
-                    </div>
-                    <div className="flex items-center p-3 bg-white rounded-lg shadow-sm">
-                      <FaCss3Alt className="text-blue-500 mr-3" size={24} />
-                      <span>CSS3</span>
-                    </div>
-                    <div className="flex items-center p-3 bg-white rounded-lg shadow-sm">
-                      <FaJs className="text-yellow-500 mr-3" size={24} />
-                      <span>JavaScript</span>
-                    </div>
-                    <div className="flex items-center p-3 bg-white rounded-lg shadow-sm">
-                      <FaReact className="text-blue-400 mr-3" size={24} />
-                      <span>React.js</span>
-                    </div>
-                    <div className="flex items-center p-3 bg-white rounded-lg shadow-sm">
-                      <SiTailwindcss className="text-teal-500 mr-3" size={24} />
-                      <span>Tailwind CSS</span>
-                    </div>
-                    <div className="flex items-center p-3 bg-white rounded-lg shadow-sm">
-                      <SiBootstrap className="text-purple-500 mr-3" size={24} />
-                      <span>Bootstrap</span>
-                    </div>
-                    <div className="flex items-center p-3 bg-white rounded-lg shadow-sm">
-                      <FaLinux className="text-orange-500 mr-3" size={24} />
-                      <span>Linux</span>
-                    </div>
-                    <div className="flex items-center p-3 bg-white rounded-lg shadow-sm">
-                      <SiApple className="text-gray-800 mr-3" size={24} />
-                      <span>macOS</span>
-                    </div>
+            </div>
+
+            {tab === "Skills" && (
+              <div className="skills-grid" style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(2, 1fr)",
+                gap: 10,
+              }}>
+                {SKILLS.map(({ icon, name }) => (
+                  <div key={name} style={{
+                    display: "flex", alignItems: "center", gap: 12,
+                    padding: "11px 14px", borderRadius: 10,
+                    background: "var(--surface)",
+                    border: "1px solid var(--border)",
+                    transition: "border-color 0.2s",
+                  }}
+                  onMouseEnter={e => (e.currentTarget as HTMLElement).style.borderColor = "var(--border2)"}
+                  onMouseLeave={e => (e.currentTarget as HTMLElement).style.borderColor = "var(--border)"}>
+                    <div style={{
+                      width: 34, height: 34, borderRadius: 8,
+                      background: "var(--surface2)",
+                      border: "1px solid var(--border)",
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      flexShrink: 0,
+                    }}>{icon}</div>
+                    <span style={{
+                      fontSize: 13, fontWeight: 500, color: "var(--text2)",
+                    }}>{name}</span>
                   </div>
-                )}
-                
-                {activeTab === "education" && (
-                  <div>
-                    <div className="mb-4 bg-white p-4 rounded-lg shadow-sm">
-                      <h4 className="font-semibold">Bachelor of Science: Computer Science</h4>
-                      <p className="text-gray-600">Jordan University of Science and Technology</p>
-                      <p className="text-gray-600">2019 - 2023</p>
-                    </div>
-                    <div className="bg-white p-4 rounded-lg shadow-sm">
-                      <h4 className="font-semibold">Apple Certified iOS Technician</h4>
-                      <p className="text-gray-600">Professional Certification</p>
-                    </div>
-                  </div>
-                )}
-                
-                {activeTab === "experience" && (
-                  <div>
-                    <div className="mb-4 bg-white p-4 rounded-lg shadow-sm">
-                      <h4 className="font-semibold">Connectivity Expert</h4>
-                      <p className="text-gray-600">AT&T – Orlando, FL</p>
-                      <p className="text-gray-600">03/2024 – Present</p>
-                      <p className="text-sm mt-2">
-                        Providing technical support for mobile devices, troubleshooting, and service-related concerns.
-                      </p>
-                    </div>
-                    <div className="bg-white p-4 rounded-lg shadow-sm">
-                      <h4 className="font-semibold">Sales Representative & Shift Leader Manager</h4>
-                      <p className="text-gray-600">Alliance wireless (Metro by T-Mobile) – Milwaukee, WI</p>
-                      <p className="text-gray-600">06/2021 – 02/2024</p>
-                      <p className="text-sm mt-2">
-                        Managing sales, technical support, and team supervision while handling inventory and operations.
-                      </p>
-                    </div>
-                  </div>
-                )}
+                ))}
               </div>
-            </div>
-            
-            <div className="mt-6">
-              <a 
-                href="#contact" 
-                className="bg-blue-950 text-white py-3 px-8 rounded-lg font-semibold hover:bg-blue-800 transition-all duration-300 inline-block"
-              >
-                Let's Talk
-              </a>
-            </div>
+            )}
+
+            {tab === "Education" && (
+              <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                <div style={{
+                  padding: "20px 22px", borderRadius: 12,
+                  background: "var(--surface)", border: "1px solid var(--border)",
+                }}>
+                  <div style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 15, color: "var(--text)", marginBottom: 6 }}>
+                    B.Sc. Computer Science
+                  </div>
+                  <div style={{ fontSize: 13, color: "var(--accent2)", marginBottom: 4 }}>Jordan University of Science & Technology</div>
+                  <div style={{ fontSize: 12, color: "var(--text3)" }}>2019 — 2023</div>
+                </div>
+                <div style={{
+                  padding: "20px 22px", borderRadius: 12,
+                  background: "var(--surface)", border: "1px solid var(--border)",
+                }}>
+                  <div style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 15, color: "var(--text)", marginBottom: 6 }}>
+                    Apple Certified iOS Technician
+                  </div>
+                  <div style={{ fontSize: 13, color: "var(--accent2)", marginBottom: 4 }}>Apple Inc.</div>
+                  <div style={{ fontSize: 12, color: "var(--text3)" }}>Professional Certification</div>
+                </div>
+              </div>
+            )}
+
+            {tab === "Certifications" && (
+              <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                <div style={{
+                  padding: "20px 22px", borderRadius: 12,
+                  background: "var(--surface)", border: "1px solid rgba(0,161,224,0.3)",
+                }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
+                    <SiSalesforce color="#00A1E0" size={20} />
+                    <div style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 15, color: "var(--text)" }}>
+                      Salesforce Administrator
+                    </div>
+                  </div>
+                  <div style={{ fontSize: 13, color: "var(--text3)" }}>In progress via Trailhead — actively studying</div>
+                  <div style={{ marginTop: 12, height: 4, background: "var(--surface2)", borderRadius: 2 }}>
+                    <div style={{ height: "100%", width: "60%", background: "var(--accent2)", borderRadius: 2 }} />
+                  </div>
+                  <div style={{ fontSize: 11, color: "var(--text3)", marginTop: 4 }}>~60% complete</div>
+                </div>
+                <div style={{
+                  padding: "20px 22px", borderRadius: 12,
+                  background: "var(--surface)", border: "1px solid var(--border)",
+                }}>
+                  <div style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 15, color: "var(--text)", marginBottom: 6 }}>
+                    Apple Certified iOS Technician
+                  </div>
+                  <div style={{ fontSize: 13, color: "var(--accent)" }}>✓ Certified</div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
-    </div>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .about-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
+    </section>
   );
 };
 

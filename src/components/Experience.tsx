@@ -1,116 +1,156 @@
-import { FaThinkPeaks, FaLaptopCode } from "react-icons/fa";
-import { MdOutlineCenterFocusWeak, MdOutlineWbAuto } from "react-icons/md";
-import { HiArrowPath } from "react-icons/hi2";
-import { HiOutlineCircleStack } from "react-icons/hi2";
-import { useState } from "react";
+import React from "react";
+import { useScrollReveal } from "../hooks/useScrollReveal";
 
-export const Experience = () => {
-  const [activeCard, setActiveCard] = useState<number | null>(null);
-  
-  const methodologies = [
-    {
-      id: 1,
-      icon: <FaThinkPeaks className="text-blue-400" size={36} />,
-      title: "Programming Thinking",
-      description: "I apply iterative programming methodologies to tackle frontend challenges, emphasizing user feedback and continuous improvement to ensure solutions are both functional and user-friendly.",
-      color: "blue"
-    },
-    {
-      id: 2,
-      icon: <HiArrowPath className="text-yellow-400" size={36} />,
-      title: "Development Sprints",
-      description: "I’ve led and contributed to fast-paced development sprints, working closely with cross-functional teams to rapidly prototype, build, and deliver features. My focus is always on writing clean, maintainable code aligned with both technical and user goals.",
-      color: "yellow"
-    },
-    {
-      id: 3,
-      icon: <MdOutlineCenterFocusWeak className="text-green-400" size={36} />,
-      title: "User-Centric Development",
-      description: "Emphasized user-centric development approaches, integrating user needs and preferences into every phase of frontend projects. Conducted user research and usability testing to inform design decisions and enhance the overall user experience.",
-      color: "green"
-    },
-    {
-      id: 4,
-      icon: <HiOutlineCircleStack className="text-red-400" size={36} />,
-      title: "Development Frameworks",
-      description: "Contributed to the implementation and maintenance of frontend development frameworks, optimizing code efficiency and ensuring consistency across projects. Leveraged framework components and libraries to expedite development cycles and achieve scalable and maintainable codebases.",
-      color: "red"
-    },
-    {
-      id: 5,
-      icon: <FaLaptopCode className="text-purple-400" size={36} />,
-      title: "Technical Problem Solving",
-      description: "Applied analytical thinking to diagnose and resolve complex technical issues across multiple platforms and environments. Developed systematic approaches to troubleshooting that improved efficiency and user satisfaction.",
-      color: "purple"
-    },
-    {
-      id: 6,
-      icon: <MdOutlineWbAuto className="text-teal-400" size={36} />,
-      title: "Responsive Design",
-      description: "Implemented responsive design principles to create seamless experiences across devices of all sizes. Focused on performance optimization techniques that balance visual appeal with efficient loading times.",
-      color: "teal"
-    }
-  ];
-  
-  const handleCardHover = (id: number) => {
-    setActiveCard(id);
-  };
-  
-  const handleCardLeave = () => {
-    setActiveCard(null);
-  };
+const JOBS = [
+  {
+    title: "Connectivity Expert",
+    company: "AT&T",
+    location: "Orlando, FL",
+    period: "Mar 2024 — Present",
+    type: "Full-time",
+    accent: "#00A8E0",
+    bullets: [
+      "Provide technical support for mobile devices, tablets, and smart home products to 50+ customers daily",
+      "Troubleshoot connectivity issues across iOS, Android, and AT&T network infrastructure",
+      "Consistently exceed monthly sales targets through consultative selling and upsell techniques",
+      "Manage customer accounts via CRM platforms — tracking service issues, upgrades, and follow-ups",
+    ],
+  },
+  {
+    title: "Sales Representative & Shift Leader",
+    company: "Alliance Wireless (Metro by T-Mobile)",
+    location: "Milwaukee, WI",
+    period: "Jun 2021 — Feb 2024",
+    type: "Full-time",
+    accent: "#E20074",
+    bullets: [
+      "Led shifts of 3–5 team members, managing daily operations, inventory, and customer escalations",
+      "Processed 100+ transactions/week across new activations, upgrades, and accessory sales",
+      "Resolved complex billing and technical support cases using carrier CRM and ticketing tools",
+      "Trained new hires on sales methodology, product knowledge, and customer service standards",
+    ],
+  },
+];
+
+const JobCard = ({ job, index }: { job: typeof JOBS[0]; index: number }) => {
+  const { ref, visible } = useScrollReveal(0.1);
 
   return (
-    <div id="work" className="py-20 bg-white">
-      <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <p className="text-blue-600 font-semibold mb-2">WORK METHODOLOGY</p>
-          <h2 className="text-4xl font-bold text-blue-950 mb-4">
-            My Development Approach
-          </h2>
-          <div className="h-1 w-20 bg-blue-600 mx-auto mb-6"></div>
-          <p className="max-w-2xl mx-auto text-gray-600">
-          I’m passionate about solving problems through creative communication and structured development practices. My approach blends technical expertise with a strong focus on user experience, collaboration, and efficient execution.
+    <div
+      ref={ref as React.RefObject<HTMLDivElement>}
+      style={{
+        position: "relative",
+        marginBottom: index < JOBS.length - 1 ? 52 : 0,
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateX(0)" : "translateX(-24px)",
+        transition: `opacity 0.5s ease ${index * 0.15}s, transform 0.5s ease ${index * 0.15}s`,
+      }}>
 
-          </p>
-        </div>
+      {/* Timeline dot */}
+      <div style={{
+        position: "absolute", left: -32, top: 16,
+        width: 14, height: 14, borderRadius: "50%",
+        background: job.accent,
+        boxShadow: `0 0 12px ${job.accent}60`,
+        border: "2px solid var(--bg2)",
+      }} />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {methodologies.map((method) => (
-            <div 
-              key={method.id}
-              className={`rounded-xl p-6 transition-all duration-300 transform hover:-translate-y-2 ${
-                activeCard === method.id ? `shadow-xl border-l-4 border-${method.color}-400` : "shadow-md border border-gray-100"
-              }`}
-              onMouseEnter={() => handleCardHover(method.id)}
-              onMouseLeave={handleCardLeave}
-            >
-              <div className={`p-4 rounded-full inline-block mb-4 bg-${method.color}-50`}>
-                {method.icon}
-              </div>
-              <h3 className="text-xl font-bold text-blue-950 mb-3">
-                {method.title}
-              </h3>
-              <p className="text-gray-600">
-                {method.description}
-              </p>
+      <div
+        style={{
+          background: "var(--surface)",
+          border: "1px solid var(--border)",
+          borderRadius: 16, padding: "28px 32px",
+          transition: "border-color 0.2s",
+        }}
+        onMouseEnter={e => (e.currentTarget as HTMLElement).style.borderColor = job.accent + "50"}
+        onMouseLeave={e => (e.currentTarget as HTMLElement).style.borderColor = "var(--border)"}>
+
+        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", flexWrap: "wrap", gap: 12, marginBottom: 20 }}>
+          <div>
+            <h3 style={{
+              fontFamily: "var(--font-display)", fontWeight: 700,
+              fontSize: 20, color: "var(--text)", letterSpacing: "-0.02em",
+              marginBottom: 4,
+            }}>{job.title}</h3>
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <span style={{ fontSize: 14, color: job.accent, fontWeight: 500 }}>{job.company}</span>
+              <span style={{ fontSize: 12, color: "var(--text3)" }}>· {job.location}</span>
             </div>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 6 }}>
+            <span style={{
+              padding: "4px 12px", borderRadius: 100,
+              background: `${job.accent}15`,
+              border: `1px solid ${job.accent}30`,
+              color: job.accent, fontSize: 12,
+              fontFamily: "var(--font-display)", fontWeight: 500,
+            }}>{job.type}</span>
+            <span style={{ fontSize: 12, color: "var(--text3)" }}>{job.period}</span>
+          </div>
+        </div>
+
+        <ul style={{ paddingLeft: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 10 }}>
+          {job.bullets.map((b, j) => (
+            <li key={j} style={{ display: "flex", gap: 12, fontSize: 14, color: "var(--text3)", lineHeight: 1.65, fontWeight: 400 }}>
+              <span style={{ color: job.accent, flexShrink: 0, marginTop: 2, fontSize: 12 }}>▸</span>
+              {b}
+            </li>
           ))}
-        </div>
-        
-        <div className="mt-16 text-center">
-          <a 
-            href="#projects" 
-            className="inline-flex items-center justify-center px-6 py-3 border border-blue-600 text-blue-600 rounded-lg font-medium hover:bg-blue-600 hover:text-white transition-colors duration-300"
-          >
-            See My Projects
-            <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
-          </a>
-        </div>
+        </ul>
       </div>
     </div>
+  );
+};
+
+export const Experience = () => {
+  const { ref: headerRef, visible: headerVisible } = useScrollReveal();
+
+  return (
+    <section id="work" className="s-section" style={{
+      padding: "120px 0",
+      background: "var(--bg2)",
+    }}>
+      <div className="s-inner">
+
+        {/* Section label + heading */}
+        <div
+          ref={headerRef as React.RefObject<HTMLDivElement>}
+          style={{
+            opacity: headerVisible ? 1 : 0,
+            transform: headerVisible ? "translateY(0)" : "translateY(24px)",
+            transition: "opacity 0.55s ease, transform 0.55s ease",
+          }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 16 }}>
+            <span style={{
+              fontFamily: "var(--font-display)", fontSize: 11, fontWeight: 600,
+              letterSpacing: "0.18em", color: "var(--accent3)", textTransform: "uppercase",
+            }}>04 — Experience</span>
+            <div style={{ flex: 1, height: 1, background: "var(--border)" }} />
+          </div>
+
+          <h2 style={{
+            fontFamily: "var(--font-display)", fontSize: "clamp(36px, 5vw, 54px)",
+            fontWeight: 800, letterSpacing: "-0.04em",
+            color: "var(--text)", marginBottom: 64, lineHeight: 1.1,
+          }}>
+            Where I've<br /><span style={{ color: "var(--text3)" }}>Worked</span>
+          </h2>
+        </div>
+
+        {/* Timeline */}
+        <div className="timeline-wrap" style={{ position: "relative", paddingLeft: 32 }}>
+          {/* Vertical line */}
+          <div style={{
+            position: "absolute", left: 7, top: 12, bottom: 12,
+            width: 1, background: "var(--border)",
+          }} />
+
+          {JOBS.map((job, i) => (
+            <JobCard key={i} job={job} index={i} />
+          ))}
+        </div>
+      </div>
+    </section>
   );
 };
 

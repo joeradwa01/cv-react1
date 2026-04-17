@@ -1,7 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-*{
-    scroll-behavior: smooth;
+:root {
+  --bg: #080b10;
+  --bg2: #0d1117;
+  --bg3: #111820;
+  --surface: #141c26;
+  --surface2: #1a2333;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --accent: #00d4aa;
+  --accent2: #0091ff;
+  --accent3: #ff6b35;
+  --text: #e8f0fe;
+  --text2: #8899b0;
+  --text3: #556070;
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-weight: 400;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 2px; }
+
+/* ── Layout system ── */
+/* Sections are offset by the sidenav (64px) on desktop.
+   Inner containers are max-width capped and centered with margin:auto. */
+
+.s-section {
+  padding-left: 64px;
+}
+
+.s-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+/* ── Responsive breakpoints ── */
+
+/* Tablet (769–1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .s-section { padding-left: 64px; }
+  .s-inner   { padding: 0 32px; }
+
+  .hero-grid  { gap: 40px !important; }
+  .hero-photo { width: 280px !important; min-width: 280px !important; }
+}
+
+/* Mobile (≤768px) */
+@media (max-width: 768px) {
+  /* No sidenav on mobile */
+  .s-section { padding-left: 0 !important; }
+  .s-inner   { padding: 0 20px !important; }
+
+  /* Hero */
+  .hero-grid {
+    flex-direction: column-reverse !important;
+    padding: 100px 20px 60px !important;
+    gap: 36px !important;
+  }
+  .hero-photo {
+    width: 220px !important;
+    min-width: 220px !important;
+    align-self: center !important;
+  }
+
+  /* About two-col → single col */
+  .about-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+
+  /* Skills 2-col → 1-col */
+  .skills-grid { grid-template-columns: 1fr !important; }
+
+  /* Contact two-col → single col */
+  .contact-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+
+  /* Experience timeline — pull dots inside on narrow screens */
+  .timeline-wrap { padding-left: 20px !important; }
+
+  /* Projects grid — single column */
+  .projects-grid { grid-template-columns: 1fr !important; }
+
+  /* General section padding */
+  .s-section { padding-top: 80px !important; padding-bottom: 80px !important; }
 }

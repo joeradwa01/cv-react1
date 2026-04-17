@@ -1,122 +1,118 @@
 import { useState, useEffect } from "react";
-import {
-  AiOutlineMenu,
-  AiOutlineHome,
-  AiOutlineProject,
-  AiOutlineMail,
-} from "react-icons/ai";
-import { GrProjects } from "react-icons/gr";
-import { BsPerson } from "react-icons/bs";
+import { HiOutlineHome, HiOutlineCode, HiOutlineUser, HiBriefcase, HiOutlineMail } from "react-icons/hi";
+
+const NAV = [
+  { id: "main",     icon: <HiOutlineHome size={16} />,  label: "Home" },
+  { id: "projects", icon: <HiOutlineCode size={16} />,  label: "Projects" },
+  { id: "about",    icon: <HiOutlineUser size={16} />,  label: "About" },
+  { id: "work",     icon: <HiBriefcase size={16} />,    label: "Experience" },
+  { id: "contact",  icon: <HiOutlineMail size={16} />,  label: "Contact" },
+];
 
 export const SideNav = () => {
-  const [nav, setNav] = useState(false);
-  const [activeSection, setActiveSection] = useState("main");
-
-  const handleNav = () => {
-    setNav(!nav);
-  };
-
-  const handleNavItemClick = (id: string) => {
-    setActiveSection(id);
-    if (window.innerWidth <= 768) {
-      setNav(false);
-    }
-  };
+  const [active, setActive] = useState("main");
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth > 768) {
-        setNav(false);
+    const onScroll = () => {
+      const pos = window.scrollY + 200;
+      for (const { id } of [...NAV].reverse()) {
+        const el = document.getElementById(id);
+        if (el && pos >= el.offsetTop) { setActive(id); break; }
       }
     };
-
-    const handleScroll = () => {
-      const position = window.scrollY;
-      const sections = ["main", "work", "projects", "about", "contact"];
-
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const top = element.offsetTop - 100;
-          const height = element.offsetHeight;
-
-          if (position >= top && position < top + height) {
-            setActiveSection(section);
-            break;
-          }
-        }
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      window.removeEventListener("scroll", handleScroll);
-    };
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const navLinks = [
-    { id: "main", icon: <AiOutlineHome size={20} />, label: "Home" },
-    { id: "work", icon: <GrProjects size={20} />, label: "Work" },
-    { id: "projects", icon: <AiOutlineProject size={20} />, label: "Projects" },
-    { id: "about", icon: <BsPerson size={20} />, label: "About" },
-    { id: "contact", icon: <AiOutlineMail size={20} />, label: "Contact" },
-  ];
-
   return (
-    <div>
-      <AiOutlineMenu
-        onClick={handleNav}
-        className="absolute top-4 right-4 z-[99] md:hidden text-blue-950"
-      />
-      
-      {/* Mobile Nav */}
-      {nav && (
-        <div className="fixed w-full h-screen bg-white flex flex-col justify-center items-center z-20 transition-all duration-300">
-          {navLinks.map(({ id, icon, label }) => (
-            <a
-              key={id}
-              onClick={() => handleNavItemClick(id)}
-              href={`#${id}`}
-              className={`w-[75%] flex items-center justify-center space-x-3 rounded-full shadow-lg bg-gray-100 shadow-gray-400 m-2 p-4 cursor-pointer hover:scale-110 transition-transform duration-200 ${
-                activeSection === id ? "text-blue-600" : "text-blue-950"
-              }`}
-            >
-              {icon}
-              <span>{label}</span>
+    <>
+      {/* Desktop side nav */}
+      <nav style={{
+        position: "fixed", left: 0, top: 0, bottom: 0, width: 64,
+        display: "flex", flexDirection: "column", alignItems: "center",
+        justifyContent: "center", gap: 8, zIndex: 100,
+        borderRight: "1px solid var(--border)",
+        background: "rgba(8,11,16,0.7)",
+        backdropFilter: "blur(12px)",
+      }} className="sidenav-desktop">
+        <div style={{
+          position: "absolute", top: 24,
+          fontFamily: "var(--font-display)", fontWeight: 800,
+          fontSize: 13, color: "var(--accent)",
+          letterSpacing: "0.05em",
+        }}>YR</div>
+
+        {NAV.map(({ id, icon, label }) => (
+          <a key={id} href={`#${id}`}
+            onClick={() => setActive(id)}
+            title={label}
+            style={{
+              width: 40, height: 40, borderRadius: 10,
+              display: "flex", alignItems: "center", justifyContent: "center",
+              color: active === id ? "var(--accent)" : "var(--text3)",
+              background: active === id ? "rgba(0,212,170,0.1)" : "transparent",
+              border: active === id ? "1px solid rgba(0,212,170,0.25)" : "1px solid transparent",
+              textDecoration: "none",
+              transition: "all 0.2s",
+              position: "relative",
+            }}
+            onMouseEnter={e => { if (active !== id) (e.currentTarget as HTMLElement).style.color = "var(--text2)"; }}
+            onMouseLeave={e => { if (active !== id) (e.currentTarget as HTMLElement).style.color = "var(--text3)"; }}>
+            {icon}
+          </a>
+        ))}
+      </nav>
+
+      {/* Mobile hamburger */}
+      <button
+        onClick={() => setMobileOpen(!mobileOpen)}
+        style={{
+          position: "fixed", top: 20, right: 20, zIndex: 200,
+          width: 44, height: 44, borderRadius: 8,
+          border: "1px solid var(--border2)",
+          background: "rgba(8,11,16,0.9)",
+          backdropFilter: "blur(12px)",
+          color: "var(--text)", cursor: "pointer",
+          display: "flex", alignItems: "center", justifyContent: "center",
+          flexDirection: "column", gap: 4,
+        }}
+        className="mobile-menu-btn">
+        <span style={{ width: 18, height: 1.5, background: mobileOpen ? "var(--accent)" : "var(--text2)", display: "block", transition: "all 0.2s", transform: mobileOpen ? "rotate(45deg) translate(2px, 4px)" : "none" }} />
+        <span style={{ width: 18, height: 1.5, background: mobileOpen ? "transparent" : "var(--text2)", display: "block", transition: "all 0.2s" }} />
+        <span style={{ width: 18, height: 1.5, background: mobileOpen ? "var(--accent)" : "var(--text2)", display: "block", transition: "all 0.2s", transform: mobileOpen ? "rotate(-45deg) translate(2px, -4px)" : "none" }} />
+      </button>
+
+      {/* Mobile overlay */}
+      {mobileOpen && (
+        <div style={{
+          position: "fixed", inset: 0, zIndex: 150,
+          background: "rgba(8,11,16,0.97)",
+          display: "flex", flexDirection: "column",
+          alignItems: "center", justifyContent: "center", gap: 16,
+        }}>
+          {NAV.map(({ id, icon, label }) => (
+            <a key={id} href={`#${id}`}
+              onClick={() => { setActive(id); setMobileOpen(false); }}
+              style={{
+                display: "flex", alignItems: "center", gap: 16,
+                color: active === id ? "var(--accent)" : "var(--text2)",
+                textDecoration: "none",
+                fontFamily: "var(--font-display)",
+                fontSize: 28, fontWeight: 700, letterSpacing: "-0.02em",
+                transition: "color 0.2s",
+              }}>
+              {icon} {label}
             </a>
           ))}
         </div>
       )}
 
-      {/* Desktop Nav */}
-      <div className="hidden md:block fixed left-6 top-1/2 transform -translate-y-1/2 z-40">
-        <div className="flex flex-col space-y-6">
-          {navLinks.map(({ id, icon, label }) => (
-            <a
-              key={id}
-              href={`#${id}`}
-              onClick={() => handleNavItemClick(id)}
-              className="relative group"
-            >
-              <div
-                className={`flex items-center justify-center w-12 h-12 rounded-full shadow-lg transition-colors duration-300 ${
-                  activeSection === id
-                    ? "bg-blue-600 text-white"
-                    : "bg-white text-blue-950"
-                }`}
-              >
-                {icon}
-              </div>
-              <span className="absolute left-16 top-1/2 transform -translate-y-1/2 px-3 py-1 bg-blue-950 text-white text-sm rounded-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                {label}
-              </span>
-            </a>
-          ))}
-        </div>
-      </div>
-    </div>
+      <style>{`
+        @media (max-width: 768px) { .sidenav-desktop { display: none !important; } }
+        @media (min-width: 769px) { .mobile-menu-btn { display: none !important; } }
+      `}</style>
+    </>
   );
 };
 
