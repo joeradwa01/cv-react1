@@ -133,7 +133,7 @@ export const Contact = () => {
               color: "var(--text)", marginBottom: 24, letterSpacing: "-0.02em",
             }}>Send a message</h3>
 
-            <form action="https://formspree.io/f/xyzwqjnb" method="POST"
+            <form action="https://formspree.io/f/mwkjlgnb" method="POST"
               style={{ display: "flex", flexDirection: "column", gap: 16 }}>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
                 {[
