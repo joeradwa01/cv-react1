@@ -9,7 +9,7 @@ export const Contact = () => {
   const { ref: rightRef, visible: rightVisible } = useScrollReveal();
 
   const copyEmail = () => {
-    navigator.clipboard.writeText("yousuf.radwan01@gmail.com");
+    navigator.clipboard.writeText("contact@yousuf-radwan.com");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -62,7 +62,7 @@ export const Contact = () => {
               {[
                 {
                   icon: <FiMail size={18} />, label: "Email",
-                  value: "yousuf.radwan01@gmail.com",
+                  value: "contact@yousuf-radwan.com",
                   action: copyEmail,
                   actionLabel: copied ? "Copied!" : "Copy",
                   color: "var(--accent)",

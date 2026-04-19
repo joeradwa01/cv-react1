@@ -38,7 +38,7 @@ export const Footer = () => {
           <div style={{ display: "flex", gap: 12 }}>
             {[
               { href: "https://www.linkedin.com/in/yousuf-radwan-bb430b2b3/", icon: <FaLinkedinIn size={16} /> },
-              { href: "mailto:yousuf.radwan01@gmail.com", icon: <MdOutlineEmail size={17} /> },
+              { href: "mailto:contact@yousuf-radwan.com", icon: <MdOutlineEmail size={17} /> },
               { href: "https://github.com/", icon: <FaGithub size={16} /> },
             ].map(({ href, icon }, i) => (
               <a key={i} href={href} target="_blank" rel="noopener noreferrer"

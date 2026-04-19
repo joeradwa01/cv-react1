@@ -194,7 +194,7 @@ export const Main = () => {
           }}>
             {[
               { href: "https://www.linkedin.com/in/yousuf-radwan-bb430b2b3/", icon: <FaLinkedinIn size={18} />, label: "LinkedIn" },
-              { href: "mailto:yousuf.radwan01@gmail.com", icon: <MdOutlineEmail size={20} />, label: "Email" },
+              { href: "mailto:contact@yousuf-radwan.com", icon: <MdOutlineEmail size={20} />, label: "Email" },
               { href: "https://github.com/", icon: <FaGithub size={18} />, label: "GitHub" },
             ].map(({ href, icon, label }) => (
               <a key={label} href={href} target="_blank" rel="noopener noreferrer"
