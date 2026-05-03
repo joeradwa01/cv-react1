@@ -279,7 +279,7 @@ export const Main = () => {
             backdropFilter: "blur(12px)",
             textAlign: "center",
           }}>
-            <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 22, color: "var(--accent2)", lineHeight: 1 }}>3+</div>
+            <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 22, color: "var(--accent2)", lineHeight: 1 }}>5+</div>
             <div style={{ fontSize: 11, color: "var(--text3)", marginTop: 3, fontWeight: 400 }}>Years Exp.</div>
           </div>
         </div>

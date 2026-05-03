@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaHtml5, FaCss3Alt, FaReact, FaJs, FaLinux, FaGithub } from "react-icons/fa";
+import { FaHtml5, FaCss3Alt, FaReact, FaJs, FaLinux, FaGithub, FaChartLine, FaUsers } from "react-icons/fa";
 import { SiTailwindcss, SiSalesforce, SiMysql, SiTypescript } from "react-icons/si";
 import aboutPhoto from "../assets/df5393e2-4d1e-4954-8ac4-f85b9335136b.jpg";
 import { useScrollReveal } from "../hooks/useScrollReveal";
@@ -15,6 +15,8 @@ const SKILLS = [
   { icon: <SiSalesforce color="#00A1E0" size={20} />, name: "Salesforce" },
   { icon: <FaLinux color="#FCC624" size={22} />, name: "Linux" },
   { icon: <FaGithub color="#fff" size={20} />, name: "Git / GitHub" },
+  { icon: <FaChartLine color="#00d4aa" size={20} />, name: "Sales & CRM" },
+  { icon: <FaUsers color="#c084fc" size={20} />, name: "Team Leadership" },
 ];
 
 const TABS = ["Skills", "Education", "Certifications"];
@@ -83,7 +85,7 @@ export const About = () => {
               backdropFilter: "blur(12px)",
               textAlign: "center",
             }}>
-              <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 28, color: "var(--accent)", lineHeight: 1 }}>3+</div>
+              <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 28, color: "var(--accent)", lineHeight: 1 }}>5+</div>
               <div style={{ fontSize: 11, color: "var(--text3)", marginTop: 4, fontWeight: 400 }}>Years<br />Experience</div>
             </div>
           </div>

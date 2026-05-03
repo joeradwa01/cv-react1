@@ -3,17 +3,31 @@ import { useScrollReveal } from "../hooks/useScrollReveal";
 
 const JOBS = [
   {
+    title: "Credit & Collections Manager",
+    company: "AT&T",
+    location: "Orlando, FL",
+    period: "Apr 2026 — Present",
+    type: "Full-time",
+    accent: "#00d4aa",
+    bullets: [
+      "Manage credit assessments and collections across consumer and business accounts, reducing delinquency rates",
+      "Lead a team of specialists to resolve complex billing disputes and negotiate payment arrangements",
+      "Analyze account portfolios to identify at-risk accounts and implement proactive retention strategies",
+      "Collaborate with cross-functional teams to streamline credit approval workflows and improve recovery metrics",
+    ],
+  },
+  {
     title: "Connectivity Expert",
     company: "AT&T",
     location: "Orlando, FL",
-    period: "Mar 2024 — Present",
+    period: "Mar 2024 — Apr 2026",
     type: "Full-time",
     accent: "#00A8E0",
     bullets: [
-      "Provide technical support for mobile devices, tablets, and smart home products to 50+ customers daily",
-      "Troubleshoot connectivity issues across iOS, Android, and AT&T network infrastructure",
-      "Consistently exceed monthly sales targets through consultative selling and upsell techniques",
-      "Manage customer accounts via CRM platforms — tracking service issues, upgrades, and follow-ups",
+      "Provided technical support for mobile devices, tablets, and smart home products to 50+ customers daily",
+      "Troubleshot connectivity issues across iOS, Android, and AT&T network infrastructure",
+      "Consistently exceeded monthly sales targets through consultative selling and upsell techniques",
+      "Managed customer accounts via CRM platforms — tracking service issues, upgrades, and follow-ups",
     ],
   },
   {
